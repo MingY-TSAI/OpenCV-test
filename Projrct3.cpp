@@ -40,89 +40,43 @@ string OCR(char path[])
 
 
 
-//void main()
-//{
-//	VideoCapture cap(0);
-//	Mat img;
-//	
-//	CascadeClassifier plateCasecade;
-//	plateCasecade.load("Resources/haarcascade_russian_plate_number.xml");
-//
-//	if (plateCasecade.empty()) { cout << "XML file  not loaded"; }
-//
-//	vector<Rect> plates;
-//
-//	while (true) {
-//		cap.read(img);
-//
-//		plateCasecade.detectMultiScale(img, plates, 1.1, 10);
-//
-//		for (int i = 0; i < plates.size(); i++)
-//		{
-//			Mat imgCrop = img(plates[i]);
-//			//imshow(to_string(i), imgCrop);                                                                                                                       
-//			
-//
-//			string tmp_string = "Resources/plates/" + to_string(i) + ".png";
-//			char *path = &tmp_string[0];
-//
-//			imwrite(tmp_string ,imgCrop);
-//			rectangle(img, plates[i].tl(), plates[i].br(), Scalar(255, 0, 255), 3);
-//
-//			//char path[] = "C:\\Users\\rrrqq\\source\\repos\\Opencv\\Opencv\\Resources\\plates\\b.png";
-//
-//			string ocr_string = OCR(path);
-//			cout << "OCR¿é¥X: " << ocr_string << endl;
-//		}
-//
-//		imshow("Image", img);
-//
-//	waitKey(1);
-//	}
-//}
-
-
-void main() {
-		
-		
-		
-		CascadeClassifier plateCasecade;
-		plateCasecade.load("Resources/haarcascade_russian_plate_number.xml");
+void main()
+{
+	VideoCapture cap(0);
+	Mat img;
 	
-		if (plateCasecade.empty()) { cout << "XML file  not loaded"; }
-	
-		vector<Rect> plates;
+	CascadeClassifier plateCasecade;
+	plateCasecade.load("Resources/haarcascade_russian_plate_number.xml");
 
-	for (int i = 0; i < 7; i++)
-	{		
-		string srcpath = "Resources/car_plate/" + to_string(i) + ".png";
+	if (plateCasecade.empty()) { cout << "XML file  not loaded"; }
 
-		Mat img = imread(srcpath);
+	vector<Rect> plates;
+
+	while (true) {
+		cap.read(img);
+
 		plateCasecade.detectMultiScale(img, plates, 1.1, 10);
-	
 
-		for (int j = 0; j < plates.size(); j++)
+		for (int i = 0; i < plates.size(); i++)
 		{
-			Mat imgCrop = img(plates[j]);
-			string tmp_string = "Resources/plates/" + to_string(i) + ".png";
-
-			imwrite(tmp_string, imgCrop);
-			rectangle(img, plates[j].tl(), plates[j].br(), Scalar(255, 0, 255), 3);
-			imshow("Image" + to_string(j), imgCrop);
+			Mat imgCrop = img(plates[i]);
+			//imshow(to_string(i), imgCrop);                                                                                                                       
 			
-			//char* path = &tmp_string[0];
 
+			string tmp_string = "Resources/plates/" + to_string(i) + ".png";
+			char *path = &tmp_string[0];
 
-			//string ocr_string = OCR(path);
+			imwrite(tmp_string ,imgCrop);
+			rectangle(img, plates[i].tl(), plates[i].br(), Scalar(255, 0, 255), 3);
 
-			//cout << "OCR¿é¥X: " << ocr_string << endl;
-			waitKey(0);
+			string ocr_string = OCR(path);
+			cout << "OCRÂ¿Ã©Â¥X: " << ocr_string << endl;
 		}
 
+		imshow("Image", img);
 
-		
-
-		
+	waitKey(1);
 	}
-
 }
+
+
